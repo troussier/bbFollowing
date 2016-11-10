@@ -6,14 +6,21 @@
     'use strict';
     
     $.fn.bbFollowing = function(options) {
+        /*
+            padding             追従させるときに上からどれだけ離すか
+            paddingBottom       追従を止めるときに下からどれだけ離すか
+            initPositionTop     ターゲット要素の初期位置 上
+            initPositionLeft    ターゲット要素の初期位置 左
+            parent              親要素を指定 デフォルト以外にする場合は該当要素の position を absolute か relative にすること
+            autoWidth           自動的に親要素の幅を設定する
+        */
         var settings = $.extend({
-            padding: 0, //追従させるときに上からどれだけ離すか
-            paddingBottom: 0, //追従を止めるときに下からどれだけ離すか
-            initPositionTop: false, //ターゲット要素の初期位置 上
-            initPositionLeft: false, //ターゲット要素の初期位置 左
-            parent: $('body'), //親要素を指定 デフォルト以外にする場合は該当要素の position を absolute か relative にすること
-            autoWidth: false, //自動的に親要素の幅を設定する
-            xxx: false
+            padding: 0,
+            paddingBottom: 0,
+            initPositionTop: false,
+            initPositionLeft: false,
+            parent: $('body'),
+            autoWidth: false
         }, options);
         
         return this.each(function() {
@@ -28,8 +35,7 @@
             if (settings.autoWidth) {
                 $this.css('width', settings.parent.width());
                 
-                $(window).off('resize.following');
-                $(window).on('resize.following', $.throttle(200, function() {
+                $(window).on('resize.bbFollowing', $.throttle(200, function() {
                     $this.css('width', settings.parent.width());
                 }));
             }
@@ -38,8 +44,7 @@
             navFixed();
             
             //スクロール時イベント
-            $(window).off('scroll.following');
-            $(window).on('scroll.following', $.throttle(200, function() {
+            $(window).on('scroll.bbFollowing', $.throttle(200, function() {
                 navFixed();
             }));
             
