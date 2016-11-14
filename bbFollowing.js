@@ -5,6 +5,11 @@
     'use strict';
     
     $.fn.bbFollowing = function(options) {
+    
+        if (this.length === 0) {
+            return this;
+        }
+        
         /*
             padding             追従させるときに上からどれだけ離すか
             paddingBottom       追従を止めるときに下からどれだけ離すか
